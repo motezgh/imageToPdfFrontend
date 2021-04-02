@@ -1,0 +1,75 @@
+
+
+<div class="row justify-content-md-center p-4"> 
+  <h1>
+    Test NGSign
+  </h1> 
+</div>
+
+  <div class="container">
+    <div class="row" *ngIf="pdfUploaded !=1 ">
+      <form>
+        <div class="form-group">
+          <label for="pdf">Please Choose PDF</label>
+          <input type="file" id="pdf" class="form-control" accept="application/pdf" (change)="onSelectedFile($event)"/>
+        </div>
+        
+        <button class="btn btn-primary" [disabled]="!selectedFiles" (click)="uploadPdf()">Confirm</button>
+      </form>
+    </div>
+    <br>
+    <div class="row" *ngIf="pdfUploaded ==1 && imageUploaded !=1">
+      <form>
+        <div class="form-group">
+          <label for="pdf" >Now You Can Choose Image</label>
+          <input type="file" id="pdf" class="form-control" accept="image/*" (change)="onSelectedFile($event)"/>
+        </div>
+        
+        <button class="btn btn-primary" [disabled]="!selectedFiles" (click)="uploadImage()">Confirm</button>
+      </form>
+    </div>
+  
+    <div class="row" *ngIf="pdfUploaded ==1 && imageUploaded==1 && infoUploaded !=1 ">
+      <form novalidate [formGroup]="form" (ngSubmit)="insertInfo()">
+        <div class="form-group">
+          <label for="x">Insert X Position Of The Image</label>
+          <input type="number" formControlName="x" id="x" class="form-control" />
+          <div *ngIf="form.get('x').invalid && form.get('x').touched || f.x.errors" class="invalid-feedback">
+            <div >Ce champ est obligatoire* et doit être valide</div>
+            
+        </div>
+        </div>
+        <div class="form-group">
+          <label for="y">Insert Y Position Of The Image</label>
+          <input type="number" formControlName="y" id="y" class="form-control" />
+          <div *ngIf="form.get('y').invalid && form.get('y').touched || f.y.errors" class="invalid-feedback">
+            <div >Ce champ est obligatoire* et doit être valide</div>
+            
+        </div>
+        </div>
+        <div class="form-group">
+          <label for="page">Insert Page Where You Want To Insert The Image </label>
+          <input type="number" formControlName="page" id="page" class="form-control" />
+          <div *ngIf="form.get('page').invalid && form.get('page').touched || f.page.errors" class="invalid-feedback">
+            <div >Ce champ est obligatoire* et doit être valide</div>
+            
+        </div>
+        </div>
+        
+        <button class="btn btn-primary" type="submit">Confirm</button>
+      </form>
+    </div>
+  
+    <div class="col-4">
+      <button *ngIf="infoUploaded==1" class="btn btn-primary"  (click)="makepdf()">Confirm with IText</button>
+    </div>
+  <br>
+    <div class="col-4">
+      <button *ngIf="infoUploaded==1" class="btn btn-primary"  (click)="makepdfBox()">Confirm with pdfBox</button>
+    </div>
+  
+  
+  </div>
+
+
+
